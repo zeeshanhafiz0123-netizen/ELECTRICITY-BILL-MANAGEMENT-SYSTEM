@@ -187,6 +187,33 @@ tr:hover td{background:#171106 !important;}
 </style>
 <style>
 .desktop-master-card{margin-bottom:14px;border:1px solid #a17b20!important;background:linear-gradient(145deg,#1a1308,#0a0805)!important}.desktop-master-card .section-title{align-items:center}.desktop-master-card .section-title>div:last-child{display:flex}.desktop-master-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.desktop-help{line-height:1.7}.desktop-status-main{margin-top:10px;color:#f0ca68;letter-spacing:.04em}.desktop-master-card *{font-weight:400!important}body{text-transform:uppercase}input,textarea{text-transform:none}strong,b,th,.btn,.nav button,.status,.stat .n,.login-title,.brand b,.detail b,.topbar h1,.section-title h2,.section-title h3,.goldband,.empty,.field label,.role,.brand small,.sidebar-note{font-weight:400!important}
+
+.forgot-row{display:flex;justify-content:flex-end;margin:-4px 0 8px}
+.forgot-link{border:0;background:transparent;color:#e5c766;font:inherit;font-size:11px;text-transform:none;text-decoration:none;padding:2px 0;cursor:pointer;opacity:.9}
+.forgot-link:hover{color:#fff0ad;text-decoration:underline;text-underline-offset:3px}
+.login-sub{line-height:1.35;margin:5px 0 14px!important;letter-spacing:.02em;font-size:10px!important}
+.login-card{padding:22px 26px!important;width:min(430px,95vw)!important;border-radius:22px!important}
+.login-card .logo{width:54px;height:54px;margin-bottom:8px;font-size:12px!important;letter-spacing:.02em}
+.login-card .login-title{font-size:17px!important;line-height:1.35}
+.login-card .field{margin:8px 0;gap:5px}
+.login-card .field label{font-size:10px!important;letter-spacing:.05em}
+.login-card .field input{padding:10px 12px!important;border-radius:10px!important;font-size:13px!important}
+.login-input-wrap{position:relative;display:flex;align-items:center}
+.login-input-wrap .input-icon{position:absolute;left:12px;width:16px;height:16px;color:#b99a45;pointer-events:none;display:grid;place-items:center}
+.login-input-wrap input{padding-left:12px!important}
+.password-wrap input{padding-right:42px!important}
+.password-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:30px;height:30px;display:grid;place-items:center;border:0;background:transparent!important;color:#b99a45;cursor:pointer;padding:4px;box-shadow:none!important}
+.password-eye svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.password-eye:hover{color:#ffe7a0}
+.login-switch{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;color:#a9955f;font-size:11px;text-transform:none}
+.login-switch .forgot-link{font-size:11px}
+.login-reset-note{font-size:11px;line-height:1.55;color:#b9a56a;margin:4px 0 12px;text-transform:none}
+.reset-card{width:min(390px,94vw)!important;padding:22px!important}
+.reset-card .field input{text-transform:none}
+
+.login-footer{width:min(430px,95vw);margin-top:-8px;text-align:center;color:#a9955f;font-size:10px;letter-spacing:.08em;text-transform:none;line-height:1.5;padding:8px 12px 2px;opacity:.95}
+.login-footer span{color:#e6c55a;font-weight:500;letter-spacing:.035em}
+@media(max-height:650px){.center{padding:16px 12px;align-content:center;gap:6px}.login-card{padding:18px 22px!important}.login-footer{margin-top:0}}
 </style>
 </head>
 <body>
@@ -194,25 +221,23 @@ tr:hover td{background:#171106 !important;}
   <div class="login-card">
     <div class="logo">LOGIN</div>
     <div class="login-title">ELECTRICITY BILL MANAGEMENT SYSTEM</div>
-    <div class="login-sub">MULTI USER PRIVATE PORTAL</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <button class="btn primary" id="newUserMode" style="flex:1">NEW USER</button>
-      <button class="btn" id="oldUserMode" style="flex:1">OLD USER LOGIN</button>
+    <div class="login-sub">REGISTERED EMAIL ID AND PASSWORD</div>
+    <div id="loginFields">
+      <div class="field"><label>REGISTERED EMAIL</label><input id="loginEmail" type="email" autocomplete="username" placeholder="Enter your email address"></div>
+      <div class="field"><label>PASSWORD</label><div class="login-input-wrap password-wrap"><input id="loginPass" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" id="toggleLoginPassword" class="password-eye" aria-label="Show password" title="Show password"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
+      <div class="forgot-row"><button type="button" id="forgotBtn" class="forgot-link">Forgot password?</button></div>
     </div>
-    <div id="registerFields">
-      <div class="field"><label>FIRST NAME</label><input id="firstName" autocomplete="given-name"></div>
-      <div class="field"><label>LAST NAME</label><input id="lastName" autocomplete="family-name"></div>
-      <div class="field"><label>PHONE NUMBER</label><input id="phoneNumber" inputmode="tel" autocomplete="tel"></div>
-      <div class="field"><label>EMAIL ID</label><input id="emailId" type="email" autocomplete="email"></div>
-      <div class="field"><label>PASSWORD</label><input id="registerPassword" type="password" autocomplete="new-password"></div>
+    <div id="registerFields" class="hidden">
+      <div class="field"><label>FIRST NAME</label><input id="firstName" autocomplete="given-name" placeholder="Enter your first name"></div>
+      <div class="field"><label>LAST NAME</label><input id="lastName" autocomplete="family-name" placeholder="Enter your last name"></div>
+      <div class="field"><label>PHONE NUMBER</label><input id="phoneNumber" inputmode="tel" autocomplete="tel" placeholder="Enter your phone number"></div>
+      <div class="field"><label>EMAIL ADDRESS</label><input id="emailId" type="email" autocomplete="email" placeholder="Enter your email address"></div>
+      <div class="field"><label>PASSWORD</label><div class="login-input-wrap password-wrap"><input id="registerPassword" type="password" autocomplete="new-password" placeholder="Create a password"><button type="button" id="toggleRegisterPassword" class="password-eye" aria-label="Show password" title="Show password"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
     </div>
-    <div id="loginFields" class="hidden">
-      <div class="field"><label>REGISTERED EMAIL ID</label><input id="loginEmail" type="email" autocomplete="username"></div>
-      <div class="field"><label>PASSWORD</label><input id="loginPass" type="password" autocomplete="current-password"></div>
-    </div>
-    <button class="btn primary" style="width:100%;margin-top:8px" id="loginBtn">CREATE ACCOUNT</button>
-    <button class="btn" style="width:100%;margin-top:8px" id="forgotBtn">FORGOT PASSWORD</button>
-    <div class="login-error" id="loginError"></div>
+    <button class="btn primary" style="width:100%;margin-top:8px" id="loginBtn">LOGIN</button>
+    <div class="login-switch"><span id="loginSwitchText">Don't have an account?</span> <button type="button" id="accountModeLink" class="forgot-link">Create New Account</button></div>
+<div class="login-footer" aria-label="Developer credit">DEVELOPED BY <span>ANSARI ANAS &amp; S.A </span></div>
+    <div class="login-error" id="loginError" aria-live="polite"></div>
   </div>
 </section>
 
@@ -310,19 +335,39 @@ tr:hover td{background:#171106 !important;}
   </main>
 </section>
 <div class="toast" id="toast"></div>
+<!-- Firebase SDK (compat) for GitHub Pages / static HTML hosting -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
 (function(){
 'use strict';
 /* ============================================================
    MODULE 01 : PROJECT CONFIGURATION
    ============================================================ */
+/* IMPORTANT: Replace every placeholder below with the Web App config from Firebase Console > Project settings > Your apps. */
+const firebaseConfig = {
+  apiKey: 'PASTE_YOUR_FIREBASE_API_KEY',
+  authDomain: 'PASTE_YOUR_PROJECT_ID.firebaseapp.com',
+  projectId: 'PASTE_YOUR_PROJECT_ID',
+  storageBucket: 'PASTE_YOUR_PROJECT_ID.appspot.com',
+  messagingSenderId: 'PASTE_YOUR_MESSAGING_SENDER_ID',
+  appId: 'PASTE_YOUR_FIREBASE_APP_ID'
+};
+let firebaseReady=false, auth=null, firestore=null, cloudUser=null, authFlowInProgress=false, activePortalUid='';
+try {
+  if (firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('PASTE_') && firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('PASTE_')) {
+    firebase.initializeApp(firebaseConfig);
+    auth=firebase.auth(); firestore=firebase.firestore(); firebaseReady=true;
+  }
+} catch (e) { console.error('Firebase initialization failed:', e); }
 let DB_NAME='ANSARI_ELECTRICITY_BILL_SYSTEM_PROJECT';
 const DB_VER=3;
 const STORE_CONSUMERS='CONSUMERS';
 const STORE_BILLS='BILLS';
 const STORE_TRASH='TRASH';
 const STORE_META='META';
-const USERS={admin:{u:'ANSARIANAS',p:'7054',label:'ADMIN LOGIN'}};
+const USERS={admin:{label:'ACCOUNT OWNER'}};
 let db=null, role='', pdfUrl='', pdfBuildTimer=null, desktopPdfHandle=null;
 const $=id=>document.getElementById(id);
 const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -338,12 +383,17 @@ function escPdf(v){return String(v==null?'':v).normalize('NFKD').replace(/[^\x20
    MODULE 02 : INDEXEDDB DATA LAYER
    ============================================================ */
 function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VER);req.onupgradeneeded=()=>{const d=req.result;[STORE_CONSUMERS,STORE_BILLS,STORE_TRASH,STORE_META].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'})})};req.onsuccess=()=>{db=req.result;resolve()};req.onerror=()=>reject(req.error)})}
-function txAll(store){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readonly'),r=tx.objectStore(store).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
-function txGet(store,id){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readonly'),r=tx.objectStore(store).get(id);r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}
-function txPut(store,obj){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readwrite'),r=tx.objectStore(store).put(obj);r.onsuccess=()=>{resolve();queuePdfSync()};r.onerror=()=>reject(r.error)})}
-function txDel(store,id){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readwrite'),r=tx.objectStore(store).delete(id);r.onsuccess=()=>{resolve();queuePdfSync()};r.onerror=()=>reject(r.error)})}
-async function nextSeq(name,start){const x=await txGet(STORE_META,name);if(x)return x.value;await txPut(STORE_META,{id:name,value:start});return start}
-async function nextId(name,start){const x=await txGet(STORE_META,name);const v=x?x.value:start;await txPut(STORE_META,{id:name,value:v+1});return v}
+function localTxAll(store){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readonly'),r=tx.objectStore(store).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+function localTxGet(store,id){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readonly'),r=tx.objectStore(store).get(id);r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}
+function localTxPut(store,obj){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readwrite'),r=tx.objectStore(store).put(obj);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+function localTxDel(store,id){return new Promise((resolve,reject)=>{const tx=db.transaction(store,'readwrite'),r=tx.objectStore(store).delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+function cloudCollection(store){if(!cloudUser||!firestore)throw new Error('Please log in to your private cloud account.');return firestore.collection('users').doc(cloudUser.uid).collection(store.toLowerCase())}
+async function txAll(store){if(store===STORE_META)return localTxAll(store);const snap=await cloudCollection(store).get();return snap.docs.map(d=>d.data())}
+async function txGet(store,id){if(store===STORE_META)return localTxGet(store,id);const snap=await cloudCollection(store).doc(String(id)).get();return snap.exists?snap.data():null}
+async function txPut(store,obj){if(store===STORE_META){await localTxPut(store,obj);return}if(!obj||obj.id===undefined||obj.id===null)throw new Error('Record ID is missing.');await cloudCollection(store).doc(String(obj.id)).set(obj);queuePdfSync()}
+async function txDel(store,id){if(store===STORE_META){await localTxDel(store,id);return}await cloudCollection(store).doc(String(id)).delete();queuePdfSync()}
+async function nextSeq(name,start){if(!cloudUser||!firestore)throw new Error('Cloud account is not ready.');const ref=firestore.collection('users').doc(cloudUser.uid).collection('meta').doc('counters');return firestore.runTransaction(async t=>{const snap=await t.get(ref);const data=snap.exists?snap.data():{};if(typeof data[name]!=='number'){data[name]=start;t.set(ref,data,{merge:true})}return data[name]})}
+async function nextId(name,start){if(!cloudUser||!firestore)throw new Error('Cloud account is not ready.');const ref=firestore.collection('users').doc(cloudUser.uid).collection('meta').doc('counters');return firestore.runTransaction(async t=>{const snap=await t.get(ref);const data=snap.exists?snap.data():{};const value=typeof data[name]==='number'?data[name]:start;data[name]=value+1;t.set(ref,data,{merge:true});return value})}
 async function allConsumers(){return txAll(STORE_CONSUMERS)}
 async function allBills(){return txAll(STORE_BILLS)}
 async function allTrash(){return txAll(STORE_TRASH)}
@@ -361,45 +411,73 @@ function billById(id,bs){return bs.find(b=>String(b.id)===String(id)||String(b.b
    MODULE 04 : AUTHENTICATION / NAVIGATION
    ============================================================ */
 function setRoleUi(){document.querySelectorAll('[data-admin]').forEach(x=>x.hidden=role!=='admin')}
-async function switchUserDatabase(email){if(db){try{db.close()}catch(e){}}DB_NAME='ANSARI_ELECTRICITY_'+btoa(unescape(encodeURIComponent(email))).replace(/[^A-Z0-9]/gi,'').slice(0,40);await openDB()}
-let loginMode='new';
-function getUsers(){try{return JSON.parse(localStorage.getItem('ansariPortalUsers')||'[]')}catch(e){return []}}
-function saveUsers(users){localStorage.setItem('ansariPortalUsers',JSON.stringify(users))}
-async function enterPortal(user){
-  await switchUserDatabase(user.email);role='admin';
-  sessionStorage.setItem('ebmsLoggedIn','1');
-  sessionStorage.setItem('activePortalEmail',user.email);
-  sessionStorage.setItem('activePortalUser',JSON.stringify(user));
+async function switchUserDatabase(uid){if(db){try{db.close()}catch(e){}}DB_NAME='ANSARI_ELECTRICITY_'+String(uid||'GUEST').replace(/[^A-Z0-9]/gi,'').slice(0,48);await openDB()}
+let loginMode='old';
+function friendlyAuthError(e){const c=(e&&e.code)||'';return ({'auth/email-already-in-use':'EMAIL ALREADY REGISTERED. PLEASE USE OLD USER LOGIN.','auth/invalid-email':'PLEASE ENTER A VALID EMAIL ADDRESS.','auth/weak-password':'PASSWORD MUST BE AT LEAST 6 CHARACTERS.','auth/invalid-credential':'INVALID EMAIL OR PASSWORD.','auth/user-not-found':'ACCOUNT NOT FOUND. PLEASE CHECK YOUR EMAIL.','auth/wrong-password':'INVALID EMAIL OR PASSWORD.','auth/too-many-requests':'TOO MANY ATTEMPTS. PLEASE TRY AGAIN LATER.','permission-denied':'FIRESTORE PERMISSION DENIED. PLEASE CHECK FIRESTORE RULES.','unavailable':'INTERNET/FIREBASE IS NOT AVAILABLE. PLEASE TRY AGAIN.'})[c] || (e&&e.message) || 'SOMETHING WENT WRONG. PLEASE TRY AGAIN.'}
+async function enterPortal(user,profile){
+  if(activePortalUid===user.uid && !$('app').classList.contains('hidden')) return;
+  activePortalUid=user.uid; cloudUser=user; const info=profile||{};
+  await switchUserDatabase(user.uid);role='admin';
   $('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');
-  $('roleLabel').textContent='PORTAL OWNER';$('welcomeUser').textContent='WELCOME '+user.firstName+' '+user.lastName;
-  setRoleUi();await rollover();await refreshAll();showPage('dashboard');toast('LOGIN SUCCESSFUL - PRIVATE DATA AREA');
+  const displayName=((info.firstName||'')+' '+(info.lastName||'')).trim()||user.email||'ACCOUNT OWNER';
+  $('roleLabel').textContent='PRIVATE ACCOUNT';$('welcomeUser').textContent='WELCOME '+displayName;
+  setRoleUi();
+  await rollover();
+  $('cId').value=await nextSeq('nextConsumerId',1001);
+  await refreshAll();showPage('dashboard');toast('LOGIN SUCCESSFUL - YOUR PRIVATE CLOUD DATA');
 }
 async function login(){
-  const users=getUsers(); let user=null;
-  if(loginMode==='new'){
-    user={firstName:$('firstName').value.trim(),lastName:$('lastName').value.trim(),phone:$('phoneNumber').value.trim(),email:$('emailId').value.trim().toLowerCase(),password:$('registerPassword').value};
-    if(!user.firstName||!user.lastName||!user.phone||!user.email||!user.password){$('loginError').textContent='PLEASE ENTER ALL DETAILS INCLUDING PASSWORD.';return}
-    if(users.some(x=>x.email===user.email)){$('loginError').textContent='EMAIL ALREADY REGISTERED. USE OLD USER LOGIN OR FORGOT PASSWORD.';return}
-    users.push(user);saveUsers(users);
-  }else{
-    const email=$('loginEmail').value.trim().toLowerCase(), pass=$('loginPass').value;
-    user=users.find(x=>x.email===email&&x.password===pass);
-    if(!user){$('loginError').textContent='INVALID EMAIL OR PASSWORD.';return}
-  }
-  await enterPortal(user);
+  $('loginError').textContent='';
+  if(!firebaseReady){$('loginError').textContent='Unable to sign in right now. Please try again later.';return}
+  authFlowInProgress=true;
+  try {
+    if(loginMode==='new'){
+      const firstName=$('firstName').value.trim(),lastName=$('lastName').value.trim(),phone=$('phoneNumber').value.trim(),email=$('emailId').value.trim().toLowerCase(),password=$('registerPassword').value;
+      if(!firstName||!lastName||!phone||!email||!password){$('loginError').textContent='PLEASE ENTER ALL DETAILS INCLUDING PASSWORD.';return}
+      if(password.length<6){$('loginError').textContent='PASSWORD MUST BE AT LEAST 6 CHARACTERS.';return}
+      const cred=await auth.createUserWithEmailAndPassword(email,password);
+      const profile={uid:cred.user.uid,firstName,lastName,phone,email,createdAt:nowIso()};
+      await firestore.collection('users').doc(cred.user.uid).set(profile);
+      await enterPortal(cred.user,profile);
+      authFlowInProgress=false;
+    }else{
+      const email=$('loginEmail').value.trim().toLowerCase(),pass=$('loginPass').value;
+      if(!email||!pass){$('loginError').textContent='ENTER YOUR EMAIL AND PASSWORD.';return}
+      const cred=await auth.signInWithEmailAndPassword(email,pass);
+      const snap=await firestore.collection('users').doc(cred.user.uid).get();
+      const profile=snap.exists?snap.data():{email:cred.user.email,firstName:'ACCOUNT',lastName:'OWNER'};
+      await enterPortal(cred.user,profile);
+      authFlowInProgress=false;
+    }
+  } catch(e){authFlowInProgress=false;console.error(e);$('loginError').textContent=friendlyAuthError(e);}
 }
-function setLoginMode(mode){loginMode=mode;$('registerFields').classList.toggle('hidden',mode!=='new');$('loginFields').classList.toggle('hidden',mode!=='old');$('newUserMode').classList.toggle('primary',mode==='new');$('oldUserMode').classList.toggle('primary',mode==='old');$('loginBtn').textContent=mode==='new'?'CREATE ACCOUNT':'LOGIN';$('loginError').textContent=''}
-function forgotPassword(){
-  const emailField=loginMode==='new' ? $('emailId').value.trim().toLowerCase() : $('loginEmail').value.trim().toLowerCase();
-  const phoneField=loginMode==='new' ? $('phoneNumber').value.trim() : '';
-  const email=emailField || String(prompt('ENTER REGISTERED EMAIL ID:')||'').trim().toLowerCase();
-  const u=getUsers().find(x=>x.email===email);
-  if(!u){$('loginError').textContent='EMAIL ID NOT FOUND. ENTER YOUR REGISTERED EMAIL.';return}
-  const phone=phoneField || String(prompt('ENTER REGISTERED PHONE NUMBER FOR VERIFICATION:')||'').trim();
-  if(phone!==String(u.phone||'').trim()){$('loginError').textContent='PHONE NUMBER VERIFICATION FAILED.';return}
-  alert('PHONE VERIFICATION SUCCESSFUL\nWELCOME '+u.firstName+' '+u.lastName+'\nYOUR PASSWORD IS: '+u.password);
-  enterPortal(u);
+function setLoginMode(mode){loginMode=mode;$('registerFields').classList.toggle('hidden',mode!=='new');$('loginFields').classList.toggle('hidden',mode!=='old');$('loginBtn').textContent=mode==='new'?'CREATE ACCOUNT':'LOGIN';$('loginSwitchText').textContent=mode==='new'?'Already have an account?':"Don't have an account?";$('accountModeLink').textContent=mode==='new'?'Sign in':'Create New Account';$('loginError').textContent=''}
+function closeResetDialog(){const d=$('passwordResetDialog');if(d)d.remove()}
+function showPasswordResetDialog(){
+  closeResetDialog();
+  const bg=document.createElement('div');bg.id='passwordResetDialog';bg.className='modal-bg';
+  bg.innerHTML=`<div class="card modal reset-card" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="section-title"><h2 id="resetTitle">RESET PASSWORD</h2><button type="button" class="btn mini" id="closeResetBtn">CLOSE</button></div>
+    <p class="login-reset-note">Enter your registered email address. We will send a secure reset link so you can set a new password and then sign in to your bill portal.</p>
+    <form id="resetPasswordForm">
+      <div class="field"><label>REGISTERED EMAIL ADDRESS</label><input id="resetEmail" type="email" autocomplete="email" placeholder="Enter your registered email" required></div>
+      <div class="login-error" id="resetError" aria-live="polite"></div>
+      <button class="btn primary" type="submit" style="width:100%;margin-top:8px">SEND RESET LINK</button>
+    </form>
+  </div>`;
+  document.body.appendChild(bg);
+  const current=(loginMode==='new'?$('emailId').value:$('loginEmail').value).trim();$('resetEmail').value=current;
+  $('closeResetBtn').onclick=closeResetDialog;
+  bg.addEventListener('click',e=>{if(e.target===bg)closeResetDialog()});
+  $('resetPasswordForm').onsubmit=async e=>{
+    e.preventDefault();const email=$('resetEmail').value.trim().toLowerCase();$('resetError').textContent='';
+    if(!firebaseReady){$('resetError').textContent='Unable to send reset link right now. Please try again later.';return}
+    try{await auth.sendPasswordResetEmail(email);$('resetError').textContent='RESET LINK SENT. CHECK YOUR EMAIL INBOX AND SPAM FOLDER.';$('resetPasswordForm').querySelector('button[type="submit"]').textContent='EMAIL SENT';}
+    catch(err){console.error(err);$('resetError').textContent=friendlyAuthError(err)}
+  };
+  $('resetEmail').focus();
 }
+async function forgotPassword(){showPasswordResetDialog()}
 function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));$('pageTitle').textContent=id==='consumers'?'Display Consumer':id.replace(/^./,x=>x.toUpperCase()).replace('pdfstore','MASTER PDF');if(id==='dashboard')refreshDashboard();if(id==='consumers')renderConsumers();if(id==='search')renderSearch();if(id==='update')renderUpdate();if(id==='bills')renderBills();if(id==='generate')prepareBillForm();if(id==='pay')renderPayPreview();if(id==='unpaid')renderUnpaid();if(id==='collection')renderCollection();if(id==='receipt')renderReceiptPreview();if(id==='count')renderCount();if(id==='delete')renderDelete();if(id==='trash')renderTrash();if(id==='reports')renderReports();if(id==='pdfstore')restorePdfStore()}
 
 /* ============================================================
@@ -593,15 +671,16 @@ async function restorePdfStore(){desktopPdfHandle=await getSavedDesktopPdfHandle
    MODULE 10 : UI EVENT WIRING / REFRESH
    ============================================================ */
 function openModal(inner){const bg=document.createElement('div');bg.className='modal-bg';bg.innerHTML='<div class="card modal">'+inner+'</div>';document.body.appendChild(bg);const close=bg.querySelector('#closeModal');if(close)close.onclick=()=>bg.remove()}
-async function refreshDashboard(){const cs=await allConsumers(),bs=await allBills();const paid=bs.filter(b=>b.paid),unpaid=bs.filter(b=>!b.paid);$('dConsumers').textContent=cs.length;$('dTodayConsumers').textContent=cs.filter(c=>storageBucket(c)==='today').length;$('dOldConsumers').textContent=cs.filter(c=>storageBucket(c)==='old').length;$('dBills').textContent=bs.length;$('dPaid').textContent=paid.length;$('dUnpaid').textContent=unpaid.length;$('dCollection').textContent=money(paid.reduce((s,b)=>s+b.totalAmount,0));$('dPending').textContent=money(unpaid.reduce((s,b)=>s+b.totalAmount,0));$('dateText').textContent='DATE: '+new Date().toLocaleDateString('en-IN')+' • '+USERS[role].label}
+async function refreshDashboard(){const cs=await allConsumers(),bs=await allBills();const paid=bs.filter(b=>b.paid),unpaid=bs.filter(b=>!b.paid);$('dConsumers').textContent=cs.length;$('dTodayConsumers').textContent=cs.filter(c=>storageBucket(c)==='today').length;$('dOldConsumers').textContent=cs.filter(c=>storageBucket(c)==='old').length;$('dBills').textContent=bs.length;$('dPaid').textContent=paid.length;$('dUnpaid').textContent=unpaid.length;$('dCollection').textContent=money(paid.reduce((s,b)=>s+b.totalAmount,0));$('dPending').textContent=money(unpaid.reduce((s,b)=>s+b.totalAmount,0));$('dateText').textContent='DATE: '+new Date().toLocaleDateString('en-IN')+' • PRIVATE ACCOUNT'}
 async function refreshAll(){await rollover();await refreshDashboard();if(!$('consumers').classList.contains('hidden'))await renderConsumers();if(!$('search').classList.contains('hidden'))await renderSearch();if(!$('bills').classList.contains('hidden'))await renderBills();queuePdfSync()}
 function wire(){
-$('loginBtn').onclick=login;$('forgotBtn').onclick=forgotPassword;$('newUserMode').onclick=()=>setLoginMode('new');$('oldUserMode').onclick=()=>setLoginMode('old');setLoginMode('new');
- const loginOrder=['firstName','lastName','phoneNumber','emailId','registerPassword','loginEmail','loginPass'];
+$('loginBtn').onclick=login;$('forgotBtn').onclick=forgotPassword;$('accountModeLink').onclick=()=>setLoginMode(loginMode==='old'?'new':'old');setLoginMode('old');
+ const wireEye=(buttonId,inputId)=>{const b=$(buttonId),i=$(inputId);if(!b||!i)return;b.onclick=()=>{const show=i.type==='password';i.type=show?'text':'password';b.setAttribute('aria-label',show?'Hide password':'Show password');b.title=show?'Hide password':'Show password';b.innerHTML=show?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a15.8 15.8 0 0 1-4 4.8M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.2 0 2.3-.2 3.3-.6"></path></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>'}};wireEye('toggleLoginPassword','loginPass');wireEye('toggleRegisterPassword','registerPassword');
+ const loginOrder=['loginEmail','loginPass','firstName','lastName','phoneNumber','emailId','registerPassword'];
  loginOrder.forEach((id)=>{const el=$(id);if(el)el.addEventListener('keydown',e=>{
    if(e.key==='Enter'){
      e.preventDefault();
-     const activeInputs=loginOrder.map(x=>$(x)).filter(x=>x && !x.disabled && x.offsetParent!==null);
+     const activeInputs=(loginMode==='old'?['loginEmail','loginPass']:['firstName','lastName','phoneNumber','emailId','registerPassword']).map(x=>$(x)).filter(x=>x && !x.disabled && x.offsetParent!==null);
      const index=activeInputs.indexOf(el);
      if(index>=0 && index<activeInputs.length-1){activeInputs[index+1].focus();}
      else if(index===activeInputs.length-1){
@@ -611,7 +690,7 @@ $('loginBtn').onclick=login;$('forgotBtn').onclick=forgotPassword;$('newUserMode
      }
    }
  });});
- $('logout').onclick=()=>{sessionStorage.removeItem('ebmsLoggedIn');sessionStorage.removeItem('activePortalUser');sessionStorage.removeItem('activePortalEmail');role='';location.reload()};$('sidebarToggle').onclick=()=>{const c=$('sidebar').classList.toggle('collapsed');$('main').classList.toggle('sidebar-collapsed');$('sidebarToggle').textContent=c?'>':'<'};
+ $('logout').onclick=async()=>{try{if(auth)await auth.signOut()}catch(e){console.error(e)}cloudUser=null;activePortalUid='';role='';location.reload()};$('sidebarToggle').onclick=()=>{const c=$('sidebar').classList.toggle('collapsed');$('main').classList.toggle('sidebar-collapsed');$('sidebarToggle').textContent=c?'>':'<'};
  document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));$('downloadPdfNav').onclick=downloadPdf;document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>showPage(b.dataset.jump));
  $('consumerForm').onsubmit=addConsumer;$('refreshConsumers').onclick=renderConsumers;$('consumerBucket').onchange=renderConsumers;$('consumerQ').oninput=()=>renderConsumers();$('searchQ').oninput=()=>renderSearch();$('searchClear').onclick=()=>{$('searchQ').value='';renderSearch()};$('updateFind').onclick=renderUpdate;$('updateQ').addEventListener('keydown',e=>{if(e.key==='Enter')renderUpdate()});
  $('billForm').onsubmit=addBill;['prevReading','currReading','ratePerUnit','fixedCharge'].forEach(id=>$(id).addEventListener('input',calculateBill));$('calcBill').onclick=calculateBill;
@@ -621,7 +700,23 @@ $('loginBtn').onclick=login;$('forgotBtn').onclick=forgotPassword;$('newUserMode
  
  document.addEventListener('click',async e=>{const v=e.target.closest('[data-view-consumer]'),ec=e.target.closest('[data-edit-consumer]'),vb=e.target.closest('[data-view-bill]'),p=e.target.closest('[data-pay-now]'),ro=e.target.closest('[data-restore-one]'),po=e.target.closest('[data-purge-one]');if(v)return viewConsumer(v.dataset.viewConsumer);if(ec){$('updateQ').value=ec.dataset.editConsumer;showPage('update');return}if(vb)return viewBill(vb.dataset.viewBill);if(p){showPage('pay');$('payBillId').value=p.dataset.payNow;return renderPayPreview()}if(ro)return restore([ro.dataset.restoreOne]);if(po)return purge([po.dataset.purgeOne])});
 }
-(async function init(){try{await openDB();if(navigator.storage&&navigator.storage.persist){try{await navigator.storage.persist()}catch(e){}}await rollover();desktopPdfHandle=await getSavedDesktopPdfHandle();if(desktopPdfHandle){const p=await ensureDesktopPdfPermission(desktopPdfHandle,false);updateDesktopPdfStatus(p?'CONNECTED':'PERMISSION NEEDED')}$('cId').value=await nextSeq('nextConsumerId',1001);wire();if(sessionStorage.getItem('ebmsLoggedIn')==='1'&&sessionStorage.getItem('activePortalUser')){const u=JSON.parse(sessionStorage.getItem('activePortalUser'));await switchUserDatabase(u.email);role='admin';$('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');$('roleLabel').textContent='PORTAL OWNER';$('welcomeUser').textContent='WELCOME '+u.firstName+' '+u.lastName;setRoleUi();await refreshAll();showPage('dashboard')}else{await buildMasterPdf()}}catch(e){console.error(e);alert('Unable to open local project database. Please use a modern browser.')}})();
+(async function init(){
+  try{
+    await openDB();
+    if(navigator.storage&&navigator.storage.persist){try{await navigator.storage.persist()}catch(e){}}
+    wire();
+    if(!firebaseReady){$('loginError').textContent='';return}
+    auth.onAuthStateChanged(async user=>{
+      if(authFlowInProgress) return;
+      if(!user){cloudUser=null;activePortalUid='';role='';$('loginScreen').classList.remove('hidden');$('app').classList.add('hidden');return}
+      try{
+        const snap=await firestore.collection('users').doc(user.uid).get();
+        const profile=snap.exists?snap.data():{email:user.email,firstName:'ACCOUNT',lastName:'OWNER'};
+        await enterPortal(user,profile);
+      }catch(e){console.error(e);$('loginError').textContent=friendlyAuthError(e);try{await auth.signOut()}catch(_){}}
+    });
+  }catch(e){console.error(e);alert('Unable to initialize the app. Check Firebase setup and internet connection.');}
+})();;
 })();
 </script>
 </body></html>
